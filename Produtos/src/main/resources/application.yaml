@@ -31,6 +31,9 @@ spring:
     username: admin
     password: admin
     
+  zipkin:
+    base-url: http://localhost:9411
+    
 crud:
   rabbitmq:
     exchange: crud.exchange
