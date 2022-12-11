@@ -21,6 +21,17 @@ spring:
     username: root
     password: root
     
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+    
+crud:
+  rabbitmq:
+    exchange: crud.exchange
+    queue: crud.produto.queue    
+    
   mvc:
     pathmatch:
       matching-strategy: ant-path-matcher

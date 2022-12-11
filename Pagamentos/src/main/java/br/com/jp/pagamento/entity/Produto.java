@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.modelmapper.ModelMapper;
+
+import br.com.jp.pagamento.data.vo.ProdutoVO;
+
 @Entity
 @Table(name = "produto")
 public class Produto implements Serializable {
@@ -40,6 +44,10 @@ public class Produto implements Serializable {
 		super();
 		this.id = id;
 		this.estoque = estoque;
+	}
+	
+	public static Produto create(ProdutoVO produtoVO) {
+		return new ModelMapper().map(produtoVO, Produto.class);
 	}
 	
 	@Override
