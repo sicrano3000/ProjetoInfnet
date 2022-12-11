@@ -9,3 +9,4 @@ services:
       - MYSQL_HOST=mysql
     ports:
       - 9411:9411
+    # command: --logging.level.zipkin2=DEBUG
