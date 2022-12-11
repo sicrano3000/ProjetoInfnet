@@ -1,7 +1,7 @@
 server:
   port: 8081
-#  servlet:
-#    context-path: /produtos
+  servlet:
+    context-path: /produtos
     
 spring:
   application:
