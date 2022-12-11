@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jp.crud.data.VO.ProdutoVO;
 import br.com.jp.crud.services.ProdutoService;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
@@ -45,6 +47,8 @@ public class ProdutoController {
 		ProdutoVO produtoVO = produtoService.findById(id);		
 		produtoVO.add(linkTo(methodOn(ProdutoController.class).findById(id)).withSelfRel());
 		
+		log.info("Buscando Produto de id {}", id);
+		
 		return produtoVO;
 	}
 	
@@ -61,6 +65,8 @@ public class ProdutoController {
 		
 		PagedModel<EntityModel<ProdutoVO>> pageModel = assembler.toModel(produtos);
 		
+		log.info("Buscando Todos os Produtos}");
+		
 		return new ResponseEntity<>(pageModel, HttpStatus.OK);
 	}
 	
@@ -69,6 +75,8 @@ public class ProdutoController {
 	public ProdutoVO create(@RequestBody ProdutoVO produtoVO) {
 		ProdutoVO prodVO = produtoService.create(produtoVO);
 		prodVO.add(linkTo(methodOn(ProdutoController.class).findById(prodVO.getId())).withSelfRel());
+		
+		log.info("Criando Produto - id {}", prodVO.getId());
 		
 		return prodVO;
 	}
@@ -79,12 +87,16 @@ public class ProdutoController {
 		ProdutoVO prodVO = produtoService.update(produtoVO);
 		prodVO.add(linkTo(methodOn(ProdutoController.class).findById(prodVO.getId())).withSelfRel());
 		
+		log.info("Atualizando Produto - id {}", prodVO.getId());
+		
 		return prodVO;
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		produtoService.delete(id);
+		
+		log.info("Deletando Produto de id {}", id);
 		
 		return ResponseEntity.ok().build();
 	}

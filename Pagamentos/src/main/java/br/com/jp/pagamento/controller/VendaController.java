@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jp.pagamento.data.vo.VendaVO;
 import br.com.jp.pagamento.services.VendaService;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @RestController
 @RequestMapping("/venda")
 public class VendaController {
@@ -45,6 +47,8 @@ public class VendaController {
 		VendaVO vendaVO = vendaService.findById(id);		
 		vendaVO.add(linkTo(methodOn(VendaController.class).findById(id)).withSelfRel());
 		
+		log.info("Buscando Venda de id {}", id);
+		
 		return vendaVO;
 	}
 	
@@ -61,6 +65,8 @@ public class VendaController {
 		
 		PagedModel<EntityModel<VendaVO>> pageModel = assembler.toModel(vendas);
 		
+		log.info("Buscando Todos as Vendas}");
+		
 		return new ResponseEntity<>(pageModel, HttpStatus.OK);
 	}
 	
@@ -69,6 +75,8 @@ public class VendaController {
 	public VendaVO create(@RequestBody VendaVO vendaVO) {
 		VendaVO prodVO = vendaService.create(vendaVO);
 		prodVO.add(linkTo(methodOn(VendaController.class).findById(prodVO.getId())).withSelfRel());
+		
+		log.info("Criando Venda - id {}", prodVO.getId());
 		
 		return prodVO;
 	}
@@ -79,12 +87,16 @@ public class VendaController {
 		VendaVO prodVO = vendaService.update(vendaVO);
 		prodVO.add(linkTo(methodOn(VendaController.class).findById(prodVO.getId())).withSelfRel());
 		
+		log.info("Atualizando Venda - id {}", prodVO.getId());
+		
 		return prodVO;
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		vendaService.delete(id);
+		
+		log.info("Deletando Venda de id {}", id);
 		
 		return ResponseEntity.ok().build();
 	}
