@@ -42,7 +42,7 @@ public class VendaController {
 		this.assembler = assembler;
 	}
 	
-	@GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml",})
+	@GetMapping(value = "/{id}", produces = {"application/json",})
 	public VendaVO findById(@PathVariable("id") Long id) {
 		VendaVO vendaVO = vendaService.findById(id);		
 		vendaVO.add(linkTo(methodOn(VendaController.class).findById(id)).withSelfRel());
@@ -52,7 +52,7 @@ public class VendaController {
 		return vendaVO;
 	}
 	
-	@GetMapping(produces = {"application/json", "application/xml", "application/x-yaml",})
+	@GetMapping(produces = {"application/json"})
 	public ResponseEntity<?> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "12") int limit,
 			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
@@ -70,8 +70,8 @@ public class VendaController {
 		return new ResponseEntity<>(pageModel, HttpStatus.OK);
 	}
 	
-	@PostMapping(produces = {"application/json", "application/xml", "application/x-yaml",}, 
-				 consumes = {"application/json", "application/xml", "application/x-yaml",})
+	@PostMapping(produces = {"application/json"}, 
+				 consumes = {"application/json"})
 	public VendaVO create(@RequestBody VendaVO vendaVO) {
 		VendaVO prodVO = vendaService.create(vendaVO);
 		prodVO.add(linkTo(methodOn(VendaController.class).findById(prodVO.getId())).withSelfRel());
@@ -81,8 +81,8 @@ public class VendaController {
 		return prodVO;
 	}
 	
-	@PutMapping(produces = {"application/json", "application/xml", "application/x-yaml",}, 
-		    	consumes = {"application/json", "application/xml", "application/x-yaml",})
+	@PutMapping(produces = {"application/json"}, 
+		    	consumes = {"application/json"})
 	public VendaVO update(@RequestBody VendaVO vendaVO) {
 		VendaVO prodVO = vendaService.update(vendaVO);
 		prodVO.add(linkTo(methodOn(VendaController.class).findById(prodVO.getId())).withSelfRel());

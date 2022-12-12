@@ -42,7 +42,7 @@ public class ProdutoController {
 		this.assembler = assembler;
 	}
 	
-	@GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml",})
+	@GetMapping(value = "/{id}", produces = {"application/json"})
 	public ProdutoVO findById(@PathVariable("id") Long id) {
 		ProdutoVO produtoVO = produtoService.findById(id);		
 		produtoVO.add(linkTo(methodOn(ProdutoController.class).findById(id)).withSelfRel());
@@ -52,7 +52,7 @@ public class ProdutoController {
 		return produtoVO;
 	}
 	
-	@GetMapping(produces = {"application/json", "application/xml", "application/x-yaml",})
+	@GetMapping(produces = {"application/json"})
 	public ResponseEntity<?> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "12") int limit,
 			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
@@ -70,8 +70,8 @@ public class ProdutoController {
 		return new ResponseEntity<>(pageModel, HttpStatus.OK);
 	}
 	
-	@PostMapping(produces = {"application/json", "application/xml", "application/x-yaml",}, 
-				 consumes = {"application/json", "application/xml", "application/x-yaml",})
+	@PostMapping(produces = {"application/json"}, 
+				 consumes = {"application/json"})
 	public ProdutoVO create(@RequestBody ProdutoVO produtoVO) {
 		ProdutoVO prodVO = produtoService.create(produtoVO);
 		prodVO.add(linkTo(methodOn(ProdutoController.class).findById(prodVO.getId())).withSelfRel());
@@ -81,8 +81,8 @@ public class ProdutoController {
 		return prodVO;
 	}
 	
-	@PutMapping(produces = {"application/json", "application/xml", "application/x-yaml",}, 
-			    consumes = {"application/json", "application/xml", "application/x-yaml",})
+	@PutMapping(produces = {"application/json"}, 
+			    consumes = {"application/json"})
 	public ProdutoVO update(@RequestBody ProdutoVO produtoVO) {
 		ProdutoVO prodVO = produtoService.update(produtoVO);
 		prodVO.add(linkTo(methodOn(ProdutoController.class).findById(prodVO.getId())).withSelfRel());
