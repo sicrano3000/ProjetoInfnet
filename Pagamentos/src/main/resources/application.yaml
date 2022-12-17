@@ -32,6 +32,10 @@ spring:
     username: admin
     password: admin
     
+  sleuth:
+    sampler:
+      probability: 1.0
+    
   zipkin:
     base-url: http://localhost:9411
     
